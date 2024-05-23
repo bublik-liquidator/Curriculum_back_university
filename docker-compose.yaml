@@ -1,0 +1,46 @@
+services:
+  curriculums_app:
+    container_name: curriculums_app
+    build: .
+    image: francescoxx/node_live_app
+    ports:
+      - '3002:3000'
+    environment:
+      - PG_DB=curriculum
+      - PG_USER=postgres
+      - PG_PASSWORD=Q156ap
+      - PG_HOST=curriculums_bd
+      - PG_PORT=5432
+      - SECRET=dvdvf65dD
+      - ALLOWED_ORIGIN=http://localhost:4200
+    depends_on:
+      - curriculums_bd
+
+  curriculums_bd:
+    container_name: curriculums_bd
+    image: postgres:14
+    ports:
+      - '5432:5432'
+    environment:
+      - POSTGRES_DB=curriculum
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=Q156ap
+    volumes:
+      - node_db_data:/var/lib/postgresql/data
+      - ./sql_init_scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  pgadmin:
+    image: dpage/pgadmin4
+    ports:
+      - '5050:80'
+    environment:
+      PGADMIN_DEFAULT_EMAIL: password123456
+      PGADMIN_DEFAULT_PASSWORD: login48784564
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    depends_on:
+      - curriculums_bd
+
+volumes:
+  node_db_data: {}
+  pgadmin_data: {}
