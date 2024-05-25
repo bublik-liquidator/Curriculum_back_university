@@ -11,9 +11,10 @@ const logger = require('./utils/logger');
 const app = express();
 
 const corsOptions = {
-  origin: 'http://localhost:4200',
+  origin: '*',
   methods: 'GET,POST,PUT,DELETE',
 };
+
 
 app.use(cors(corsOptions));
 app.use(bodyParser.json());

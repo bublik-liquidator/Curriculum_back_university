@@ -1,3 +1,6 @@
+CREATE DATABASE curriculum;
+\c curriculum;
+
 CREATE TABLE user_data (
     id SERIAL PRIMARY KEY,
     name VARCHAR(100),

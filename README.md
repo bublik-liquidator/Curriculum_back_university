@@ -2,9 +2,13 @@
 
 docker-compose up --build
 
+> **Это нужно чтобы:** Иинициализировать бд + запустить сервер автоматически(docker-ом).
+
+Есть файл с инициализацие бд: см. sql_init_scripts файл init.sql
+
 # credentials
 
-LOGIN:admin
+LOGIN:admin \ user
 
 PASSWORD:manger
 
