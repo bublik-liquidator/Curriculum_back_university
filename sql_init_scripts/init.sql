@@ -106,3 +106,16 @@ INSERT INTO curriculum_specialty ("curriculumId", "specialtyId", "educationFormI
 (16, 1, 1),
 (17, 1, 2),
 (18, 2, 1);
+
+CREATE TABLE archive (
+    id SERIAL PRIMARY KEY,
+    title VARCHAR(100),
+    year INT,
+    "statusId" INT REFERENCES status(id),
+    "educationFormId" INT REFERENCES education_form(id),
+    "filePath" BYTEA,
+    "lastModified" TIMESTAMP,
+    "developerId" INT REFERENCES user_data(id),
+    "expiryDate" DATE
+);
+

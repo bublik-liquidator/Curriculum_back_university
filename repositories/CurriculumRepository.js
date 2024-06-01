@@ -7,7 +7,7 @@ const { EducationForm } = require('../models/EducationForm');
 const { CurriculumSpecialty } = require('../models/CurriculumSpecialty');
 const { getSpecialties } = require('../repositories/SpecialtyRepository');
 const { Op } = require('sequelize');
-
+const { Archive } = require('../models/Archive');
 const logger = require('../utils/logger');
 
 async function getCurriculums(user, page, limit) {
@@ -358,6 +358,19 @@ async function deleteCurriculum(id) {
   if (!curriculum) {
     throw new Error('Куррикулум не найден');
   }
+
+  await Archive.create({
+    id: curriculum.id,
+    title: curriculum.title,
+    year: curriculum.year,
+    statusId: curriculum.statusId,
+    educationFormId: curriculum.educationFormId,
+    filePath: curriculum.filePath,
+    lastModified: curriculum.lastModified,
+    developerId: curriculum.developerId,
+    expiryDate: curriculum.expiryDate,
+  });
+
   await CurriculumSpecialty.destroy({ where: { curriculumId: id } });
   await curriculum.destroy();
 }

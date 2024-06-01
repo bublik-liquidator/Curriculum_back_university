@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const userRoutes = require('./routes/userRoutes');
 const curriculumRoutes = require('./routes/curriculumRoutes');
+const archiveRoutes = require('./routes/archiveRoutes');
 const specialtyRoutes = require('./routes/specialtyRoutes');
 const statusRoutes = require('./routes/statusRoutes');
 const educationFormRoutes = require('./routes/educationFormRoutes');
@@ -15,12 +16,12 @@ const corsOptions = {
   methods: 'GET,POST,PUT,DELETE',
 };
 
-
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
 
 app.use('/api/user', userRoutes);
 app.use('/api/curriculum', curriculumRoutes);
+app.use('/api/archive', archiveRoutes);
 app.use('/api/specialty', specialtyRoutes);
 app.use('/api/status', statusRoutes);
 app.use('/api/education-form', educationFormRoutes);

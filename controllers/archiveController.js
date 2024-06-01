@@ -1,8 +1,7 @@
-const curriculumService = require('../services/curriculumService');
+const curriculumService = require('../services/archiveService');
 
 async function getCurriculums(req, res) {
   try {
-    console.log(req.user);
     const page = req.body.page;
     const limit = req.body.limit;
     const curriculums = await curriculumService.getCurriculums(req.user, page, limit);
@@ -61,43 +60,6 @@ async function saveCurriculum(req, res) {
   }
 }
 
-async function updateCurriculum(req, res) {
-  try {
-    const curriculum = await curriculumService.updateCurriculum(req.params.id, req.file);
-    return res.json(curriculum);
-  } catch (err) {
-    return res.status(err.status || 500).send(err.message);
-  }
-}
-
-async function updateCurriculumInfo(req, res) {
-  try {
-    const curriculum = await curriculumService.updateCurriculumInfo(req.params.id, req.body);
-    return res.json(curriculum);
-  } catch (err) {
-    console.error('Произошла ошибка:', err);
-    return res.status(err.status || 400).send(err.message);
-  }
-}
-
-async function deleteCurriculum(req, res) {
-  try {
-    const message = await curriculumService.deleteCurriculum(req.params.id);
-    return res.json({ message });
-  } catch (err) {
-    return res.status(err.status || 500).send(err.message);
-  }
-}
-
-async function sortCurriculums(req, res) {
-  try {
-    const curriculums = await curriculumService.sortCurriculums();
-    return res.json(curriculums);
-  } catch (err) {
-    return res.status(err.status || 500).send(err.message);
-  }
-}
-
 async function getCurriculumStatusById(req, res) {
   try {
     const status = await curriculumService.getCurriculumStatusById(req.params.id);
@@ -108,27 +70,10 @@ async function getCurriculumStatusById(req, res) {
   }
 }
 
-async function createCurriculum(req, res) {
-  try {
-    const curriculumData = JSON.parse(req.body.curriculum);
-    const curriculum = await curriculumService.createCurriculum(curriculumData, req.file);
-    return res.json(curriculum);
-  } catch (err) {
-    console.error('Произошла ошибка:', err);
-    return res.status(err.status || 400).send(err.message);
-  }
-}
-
 module.exports = {
   getCurriculums,
   getCurriculumById,
   getCurriculumStatusById,
   getExpiringCurriculums,
-  saveCurriculum,
-  updateCurriculum,
-  updateCurriculumInfo,
-  sortCurriculums,
   searchCurriculums,
-  createCurriculum,
-  deleteCurriculum,
 };
